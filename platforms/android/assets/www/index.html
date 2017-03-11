@@ -28,20 +28,30 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> --><!-- 
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline' 'unsafe-eval' ; media-src *;script-src 'self' http://onlineerp.solution.quebec 'unsafe-inline' 'unsafe-eval'; "> -->
+
+        <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src	'self' 'unsafe-inline' *; img-src 'self' data: *">
+
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <!-- <script src="//vk.com/js/api/openapi.js" type="text/javascript"></script> -->
+    	<link rel="shortcut icon" href="">
+    	<!-- <script src="http://vk.com/js/api/xd_connection.js?20" type="text/javascript"></script> -->
+    	<script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript"></script>
+
+        <title>Simple app</title>
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
+            <!-- <h1>Apache Cordova</h1> -->
+            <div id="deviceready"          >
+           		<!-- <button id = "show">SHOW</button> -->
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
-               <button id = "show">SHOW</button>
+               <!-- </button> -->
                <div data-role="page" id="home">
 				    <div data-role="header">
 				        <h1>Login</h1>
@@ -49,18 +59,71 @@
 
 				      <div data-role="main" class="ui-content">
 				        <p>You need to login to view your VK profile information</p>
-				        <a target="_blank" href="#" onclick="login()" style="text-decoration: none"><button>Login using VK</button></a>
+				       	 	<a target="_blank"  onclick="VK.Auth.login(authorize);" style="text-decoration: none">
+				        		<button id="login">Login using VK</button>
+				        	</a>
+				        	<button id="logout" onclick="VK.Auth.logout(log_out);">Logout</button>
+				        	<button id="towall" onclick="VK.Auth.getLoginStatus(add_post_to_wall);">To wall</button>
 				      </div>
 				</div>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <script src="//vk.com/js/api/openapi.js" type="text/javascript"></script>
 		<script type="text/javascript">
-		  VK.init({
-		    apiId: 5916792
-		  });
+
+ 
+	      VK.init({
+            apiId: 5916792
+          });
+
+           function add_post_to_wall(response) {
+                          if (response.session) {
+                            var post = {owner_id: response.session.mid, message: "APP TEST", from_group: 1}
+                            VK.Api.call('wall.post', post, function(r) {
+                                if (r.response) {console.log(r.response.post_id);}
+                                      if (!r || r.error) {
+                                      	navigator.notification.alert('error in post');
+                                      } else {
+                                        navigator.notification.alert('successfully posted');
+                                      }
+                            });
+                          } else {
+                            navigator.notification.alert('You are not login');
+                          }
+                        }
+            // console.log("status = " + VK.Auth.getLoginStatus(authInfo));
+
+           function log_out(){
+           	  document.getElementById("login").style.visibility = 'visible';
+              document.getElementById('logout').style.visibility = 'hidden';
+           }
+
+          
+          function authorize(response) {
+            if (response.session) {
+              // navigator.notification.alert("Authorization denied");
+              // document.getElementById("login").style.visibility = 'hidden';
+              // document.getElementById('logout').style.visibility = 'visible'; 
+
+              if (response.status === 'connected') {
+		        var uid = response.session.mid;
+		        // var sid = response.session.sid;
+		        console.log('uid: '+uid);
+		        document.getElementById("login").style.visibility = 'hidden';
+                document.getElementById('logout').style.visibility = 'visible'; 
+
+
+
+		       }
+
+            }
+
+          }
+
+          VK.UI.button('login_button'); 
+
 		</script>
+
     </body>
 </html>

@@ -16,18 +16,64 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 var app = {
+
     // Application Constructor
+    
+
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+ 
+        // VK.Widgets.Comments('vk_comments', {limit: 10, width: '627', attach: '*'});
+        
+  
+//               function getit(response) {
+//     if (response.session) {
+//         var id = response.session.mid;
+//     }
+//     VK.Api.call('users.get', {uids: id, fields: 'sex,photo_big'}, function(r) {
+//         if(r.response) {
+//             alert(r.response[0].sex);
+//             console.log(r.response);
+//         }
+//     });
+// }
+// VK.UI.button('login_button');
+// function login(){
+//           VK.init({
+//             apiId: 5916792
+//           });
+//           VK.Auth.login(authorize);
+          
+//           function authorize(response) {
+//             if (response.session) {
+//               navigator.notification.alert("Authorization denied");
+//             }
+//             else {
+//               navigator.notification.alert("Authorization doen't denied");
+//             }
+//           }
+          
+//           VK.Api.call('friends.get', {fields: 'uid,first_name'}, function(data) {
+//             navigator.notification.alert(data.response.length);
+//             if (data.error) {
+//               navigator.notification.alert(data.error.error_msg);
+//             } else {
+//               if (data.response.length > 0) {
+//                 for (i = 0; i < data.response.length; i++) {
+//                   navigator.notification.alert(data.response[i]);
+//                   document.write("<p>" + data.response[i] + "</p>");
+//                 }
+//               }
+//             }
+//           });
+//           VK.UI.button('login_button'); 
 
-        VkSdk.init('5916792');
-        VkSdk.initiateLogin(['photos', 'offline']);
-
-        document.getElementById("show").addEventListener("click", show);
+        // document.getElementById("show").addEventListener("click", show);
    
         function show() {
-           alert("Name");
+           navigator.notification.alert("Name ");
         }
 
     },

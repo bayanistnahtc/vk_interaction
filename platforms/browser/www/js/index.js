@@ -24,13 +24,7 @@ var app = {
 
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-        // var t ;
-        // VkSdk.init('5916792');
-        // VkSdk.initiateLogin(['photos', 'offline']);
-        // document.addEventListener('vkSdk.newToken', function(token) {
-        //   // alert('New token is ' + token);
-        //   t = token
-        // });
+ 
         // VK.Widgets.Comments('vk_comments', {limit: 10, width: '627', attach: '*'});
         
   
@@ -75,8 +69,8 @@ var app = {
 //             }
 //           });
 //           VK.UI.button('login_button'); 
-// }
-        document.getElementById("show").addEventListener("click", show);
+
+        // document.getElementById("show").addEventListener("click", show);
    
         function show() {
            navigator.notification.alert("Name ");
