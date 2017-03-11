@@ -1,0 +1,102 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "res/xml/config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"SocialVk\"><param name=\"android-package\" value=\"ru.trilan.socialvk.SocialVk\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/manifest/application": [
+                        {
+                            "xml": "<activity android:name=\"com.vk.sdk.VKOpenAuthActivity\"></activity>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<activity android:name=\"com.vk.sdk.VKServiceActivity\"></activity>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "res/values/strings.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<integer name=\"com_vk_sdk_AppId\">5916792</integer>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.company.rustam"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.company.rustam"
+        },
+        "cordova-social-vk": {
+            "VK_APP_ID": "5916792",
+            "PACKAGE_NAME": "com.company.rustam"
+        }
+    },
+    "dependent_plugins": {},
+    "modules": [
+        {
+            "id": "cordova-plugin-dialogs.notification",
+            "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+            "pluginId": "cordova-plugin-dialogs",
+            "merges": [
+                "navigator.notification"
+            ]
+        },
+        {
+            "id": "cordova-plugin-dialogs.notification_android",
+            "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+            "pluginId": "cordova-plugin-dialogs",
+            "merges": [
+                "navigator.notification"
+            ]
+        },
+        {
+            "id": "cordova-social-vk.SocialVk",
+            "file": "plugins/cordova-social-vk/www/social-vk.js",
+            "pluginId": "cordova-social-vk",
+            "clobbers": [
+                "SocialVk"
+            ]
+        }
+    ],
+    "plugin_metadata": {
+        "cordova-plugin-whitelist": "1.3.2",
+        "cordova-plugin-dialogs": "1.3.2",
+        "cordova-social-vk": "1.0.4"
+    }
+}
